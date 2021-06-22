@@ -28,7 +28,8 @@ defmodule Hycbot.MixProject do
       {:jason, "~> 1.2.2"},
       {:httpoison, "~> 1.8.0"},
       {:tzdata, "~> 1.1.0"},
-      {:quantum, "~> 3.0"}
+      {:quantum, "~> 3.0"},
+      {:gen_tcp_accept_and_close, "~> 0.1.0"}
     ]
   end
 end
