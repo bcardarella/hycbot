@@ -5,7 +5,8 @@ config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 config :hycbot, HYCBot.Scheduler,
   jobs: [
     {"00 16 * * FRI", {HYCBot, :post_conditions, [:laser_friday]}},
-    {"00 11 * * SUN", {HYCBot, :post_conditions, [:laser_sunday]}}
+    {"00 11 * * SUN", {HYCBot, :post_conditions, [:laser_sunday]}},
+    {"00 10 26 6 *", {HYCBot, :post_conditions, [:laser_salty_dog_june]}}
   ],
   debug_logging: false,
   timezone: "America/New_York"

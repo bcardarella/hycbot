@@ -26,6 +26,14 @@ defmodule HYCBot do
     %{raw: EEx.eval_file("lib/templates/laser-sunday.eex", assigns: data), topic_id: 53}
   end
 
+  def render(:laser_salty_dog_june) do
+    data =
+      fetch_data()
+      |> parse_data()
+
+    %{raw: EEx.eval_file("lib/templates/laser-salty-dog-june.eex", assigns: data), topic_id: 53}
+  end
+
   def render_print(type) do
     render(type) |> IO.inspect()
   end
@@ -122,6 +130,7 @@ defmodule HYCBot do
   end
 
   def fetch(url) do
+    IO.inspect(url)
     {:ok, result} = HTTPoison.get(url)
     Jason.decode(result.body)
   end
