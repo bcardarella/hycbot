@@ -5,10 +5,18 @@ defmodule HYCBot do
 
   @openweather_api_key System.get_env("OPENWEATHER_API_KEY")
   @openweather "https://api.openweathermap.org/data/2.5/onecall?lat=42.262722588636954&lon=-70.89326654215711&exclude=minutely,daily,alerts&appid=#{@openweather_api_key}&units=imperial"
-  @tides "https://hightide.earth/api/tides?heights&datum=MLLW&extremes&length=43200&step=3600&stationDistance=100&start=1624211518&lon=-70.89326654215711&lat=42.262722588636954"
   @discourse_api_key System.get_env("DISCOURSE_API_KEY")
   @hycdiscourse_url System.get_env("DISCOURSE_URL")
 
+  @timezone "America/New_York"
+
+  def tides_url() do
+    epoch =
+      DateTime.now!(@timezone)
+      |> DateTime.to_unix()
+
+    "https://hightide.earth/api/tides?heights&datum=MLLW&extremes&length=43200&step=3600&stationDistance=100&start=#{epoch}&lon=-70.89326654215711&lat=42.262722588636954"
+  end
 
   def render(:laser_friday) do
     data =
@@ -52,7 +60,7 @@ defmodule HYCBot do
   end
 
   defp current_date() do
-    DateTime.now!("America/New_York") |> Calendar.strftime("%-m/%-d")
+    DateTime.now!(@timezone) |> Calendar.strftime("%-m/%-d")
   end
 
   def parse_sunset(weather) do
@@ -66,7 +74,7 @@ defmodule HYCBot do
   defp convert_unix_to_datetime(unixtime) do
     unixtime
     |> DateTime.from_unix!()
-    |> DateTime.shift_zone!("America/New_York")
+    |> DateTime.shift_zone!(@timezone)
   end
 
   def parse_weather_range(weather, hours) do
@@ -125,12 +133,11 @@ defmodule HYCBot do
 
   def fetch_data() do
     {:ok, weather} = fetch(@openweather)
-    {:ok, tides} = fetch(@tides)
+    {:ok, tides} = tides_url() |> fetch()
     %{weather: weather, tides: tides}
   end
 
   def fetch(url) do
-    IO.inspect(url)
     {:ok, result} = HTTPoison.get(url)
     Jason.decode(result.body)
   end
