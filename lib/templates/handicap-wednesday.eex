@@ -1,0 +1,8 @@
+Wednesday night racing conditions for **<%= @current_date %>**
+
+* **Sunset**: <%= @sunset %>
+* **Tide**: <%= @tide.type %> is at <%= @tide.time %>; <%= @tide.height %>ft
+* **Weather**:
+<%= for interval <- @weather do %>
+  * *<%= interval.hour %>*: <%= interval.speed %>kts, gusts to <%= interval.gust %>kts <%= interval.direction %>; <%= interval.temp %>°F & <%= interval.description %>
+<% end %>

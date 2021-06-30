@@ -34,6 +34,14 @@ defmodule HYCBot do
     %{raw: EEx.eval_file("lib/templates/laser-sunday.eex", assigns: data), topic_id: 53}
   end
 
+  def render(:handicap_wednesday) do
+    data =
+      fetch_data()
+      |> parse_data()
+
+    %{raw: EEx.eval_file("lib/templates/handicap-wednesday.eex", assigns: data), topic_id: 77}
+  end
+
   def render(:laser_salty_dog_june) do
     data =
       fetch_data()
