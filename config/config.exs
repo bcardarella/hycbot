@@ -4,12 +4,12 @@ config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 config :hycbot, HYCBot.Scheduler,
   jobs: [
-    {"00 16 * * FRI", {HYCBot, :post_conditions, [:laser_friday]}},
-    {"00 11 * * SUN", {HYCBot, :post_conditions, [:laser_sunday]}},
-    {"30 16 * * WED", {HYCBot, :post_conditions, [:handicap_wednesday]}},
-    {"30 16 * * THU", {HYCBot, :post_conditions, [:rhodes_thursday]}},
-    {"00 11 * * SUN", {HYCBot, :post_conditions, [:rhodes_sunday]}},
-    {"00 10 26 6 *", {HYCBot, :post_conditions, [:laser_salty_dog_june]}}
+    # {"00 16 * * FRI", {HYCBot, :post_conditions, [:laser_friday]}},
+    # {"00 11 * * SUN", {HYCBot, :post_conditions, [:laser_sunday]}},
+    # {"30 16 * * WED", {HYCBot, :post_conditions, [:handicap_wednesday]}},
+    # {"30 16 * * THU", {HYCBot, :post_conditions, [:rhodes_thursday]}},
+    # {"00 11 * * SUN", {HYCBot, :post_conditions, [:rhodes_sunday]}},
+    # {"00 10 26 6 *", {HYCBot, :post_conditions, [:laser_salty_dog_june]}}
   ],
   debug_logging: false,
   timezone: "America/New_York"
